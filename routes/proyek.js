@@ -9,11 +9,11 @@ router.get("/", (req, res) => {
         "SELECT * FROM proyek ORDER BY id_proyek DESC",
         (err, rows) => {
             if (!err) {
-                // Format tanggal secara manual
-                const formattedRows = rows.map(row => ({
+                 // Format tanggal dengan zona waktu lokal
+                 const formattedRows = rows.map(row => ({
                     ...row,
-                    tanggal_mulai: new Date(row.tanggal_mulai).toISOString().split("T")[0],
-                    tanggal_berakhir: new Date(row.tanggal_berakhir).toISOString().split("T")[0]
+                    tanggal_mulai: moment(row.tanggal_mulai).tz("Asia/Jakarta").format("YYYY-MM-DD"),
+                    tanggal_berakhir: moment(row.tanggal_berakhir).tz("Asia/Jakarta").format("YYYY-MM-DD")
                 }));
                 return res.status(200).json({
                     status: true,
@@ -92,8 +92,8 @@ router.get("/:id_proyek", (req, res) => {
                     const row = rows[0];
                     const formattedRow = {
                         ...row,
-                        tanggal_mulai: new Date(row.tanggal_mulai).toISOString().split("T")[0],
-                        tanggal_berakhir: new Date(row.tanggal_berakhir).toISOString().split("T")[0]
+                        tanggal_mulai: moment(row.tanggal_mulai).tz("Asia/Jakarta").format("YYYY-MM-DD"),
+                        tanggal_berakhir: moment(row.tanggal_berakhir).tz("Asia/Jakarta").format("YYYY-MM-DD")
                     };
                     return res.status(200).json({
                         status: true,
