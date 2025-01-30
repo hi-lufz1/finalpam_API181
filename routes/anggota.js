@@ -48,7 +48,7 @@ router.post(
         }
 
         let formData = {
-            id_tim: req.body.id_tim,
+            id_tim: req.body.id_tim == 0 ? null : req.body.id_tim,
             nama_anggota: req.body.nama_anggota,
             peran: req.body.peran,
         };
@@ -113,7 +113,7 @@ router.get("/:id_anggota", (req, res) => {
 router.put(
     "/:id_anggota",
     [
-        body("id_tim").notEmpty(),
+        body("id_tim"),
         body("nama_anggota").notEmpty(),
         body("peran").notEmpty(),
     ],
@@ -128,7 +128,7 @@ router.put(
 
         let id_anggota = req.params.id_anggota;
         let formData = {
-            id_tim: req.body.id_tim,
+            id_tim: req.body.id_tim == 0 ? null : req.body.id_tim,
             nama_anggota: req.body.nama_anggota,
             peran: req.body.peran,
         };
